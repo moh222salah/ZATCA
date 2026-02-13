@@ -1,0 +1,75 @@
+# ZATCA Compliance Monitor Configuration
+# Copy to config.yaml and customize as needed
+
+validation:
+  # Use strict validation rules (warnings treated as errors)
+  strict_mode: true
+  
+  # Check cryptographic signatures
+  check_signatures: true
+  
+  # Verify QR codes
+  verify_qr: true
+  
+  # Validate invoice chain integrity (PIH)
+  validate_chain: true
+
+processing:
+  # Maximum number of worker threads for concurrent processing
+  # Set to 0 to use CPU count * 2 (default)
+  max_workers: 8
+  
+  # Batch size for chunked processing
+  batch_size: 100
+  
+  # File patterns to process
+  patterns:
+    - "*.xml"
+    - "*.json"
+
+alerts:
+  # Enable alert notifications
+  enabled: false
+  
+  # Webhook URL for compliance alerts
+  webhook_url: "https://your-webhook-url.com/alerts"
+  
+  # Email recipients for compliance reports
+  email_recipients:
+    - compliance@company.sa
+    - accounting@company.sa
+  
+  # Alert on specific violation codes
+  critical_violations:
+    - VAT_001  # Invalid seller VAT
+    - VAT_002  # Invalid buyer VAT
+    - CALC_001 # Subtotal mismatch
+    - CALC_002 # Tax calculation error
+
+reporting:
+  # Save individual invoice reports
+  save_individual_reports: true
+  
+  # Generate summary report
+  generate_summary: true
+  
+  # Report formats (txt, csv, json)
+  formats:
+    - txt
+    - csv
+  
+  # Output directory for reports
+  output_directory: "./reports"
+
+logging:
+  # Logging level (DEBUG, INFO, WARNING, ERROR)
+  level: INFO
+  
+  # Log file location
+  file: "./zatca_monitor.log"
+  
+  # Enable audit logging (required for compliance)
+  audit_logging: true
+  
+  # Audit log location
+  audit_file: "./audit.log"
